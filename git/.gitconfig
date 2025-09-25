@@ -1,0 +1,11 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Bill Buchanan
+	email = bill.buchanan@truelio.com
+# Please adapt and uncomment the following lines:
+#	name = Bill Buchanan
+#	email = bill.buchanan@truelio.com
+[pull]
+	rebase = false
+[push]
+	default = current
