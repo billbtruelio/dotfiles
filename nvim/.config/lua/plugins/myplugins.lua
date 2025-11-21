@@ -1,5 +1,13 @@
 return {
   {
+    "folke/snacks.nvim",
+    opts = {
+      picker = {
+        ignored = true,
+      },
+    },
+  },
+  {
     "sitiom/nvim-numbertoggle",
     lazy = false,
     init = function()
@@ -19,6 +27,12 @@ return {
     cmd = { "Dotnet" }, -- so :Dotnet works even outside those filetypes
     config = function()
       require("easy-dotnet").setup({
+        lsp = {
+          on_attach = function(client, bufnr)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
+        },
         -- defaults are fine; tweak if you like:
         -- solution_detection = { files = { "/*.sln", "/**/*.sln" } },
         -- prefer_nvim_root = true,  -- use Neovim root (project) if detected

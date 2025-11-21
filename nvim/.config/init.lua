@@ -37,3 +37,29 @@ end, { desc = "dotnet build -> quickfix" })
 -- (nice-to-have) quickfix navigation
 vim.keymap.set("n", "]q", ":cnext<CR>", { silent = true })
 vim.keymap.set("n", "[q", ":cprev<CR>", { silent = true })
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Yank / Delete whole buffer helpers
+-- yyy → yank entire buffer (uses default register)
+-- ddd → delete entire buffer to the black hole (clipboard/registers untouched)
+-- ─────────────────────────────────────────────────────────────────────────────
+vim.keymap.set("n", "yyy", [[:%y<CR>]], {
+  silent = true,
+  desc = "Yank entire buffer",
+})
+
+vim.keymap.set("n", "ddd", [[:%delete _<CR>]], {
+  silent = true,
+  desc = "Delete entire buffer (black hole)",
+})
+
+-- Optional: a friendly heads-up after the big delete (comment out if you hate joy)
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+  pattern = ":",
+  callback = function()
+    if vim.v.event and vim.v.event.cmdtype == ":" and vim.fn.getcmdline():match("^%%delete _$") then
+      vim.schedule(function()
+        vim.notify("Buffer cleared (sent to the void). Clipboard left untouched. 🕳️", vim.log.levels.WARN)
+      end)
+    end
+  end,
+})
