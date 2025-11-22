@@ -21,6 +21,10 @@ return {
       "nvim-lua/plenary.nvim",
       -- Telescope is optional but gives you pickers: solution select, projects, etc.
       "nvim-telescope/telescope.nvim",
+      -- arm64 netcoredbg build so the debugger stops crashing on Apple Silicon
+      {
+        "Cliffback/netcoredbg-macOS-arm64.nvim",
+      },
     },
     -- Load when you’re in a C# repo or on demand
     ft = { "cs", "sln", "csproj" },
@@ -32,6 +36,11 @@ return {
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
           end,
+        },
+        debugger = {
+          enabled = true,
+          auto_register_dap = true,
+          bin_path = vim.fn.stdpath("data") .. "/lazy/netcoredbg-macOS-arm64.nvim/netcoredbg/netcoredbg",
         },
         -- defaults are fine; tweak if you like:
         -- solution_detection = { files = { "/*.sln", "/**/*.sln" } },

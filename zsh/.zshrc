@@ -242,6 +242,7 @@ bindkey -s '^G' 'cdf\n'
 export ANDROID_HOME=~/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/10.0/bin
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!

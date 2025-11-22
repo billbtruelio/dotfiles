@@ -1,6 +1,8 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+local map = vim.keymap.set
+
 vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>", { silent = true, desc = "Save and leave insert mode" })
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>be", function()
@@ -19,6 +21,40 @@ vim.keymap.set("x", "J", ":move '>+1<CR>gv=gv", { desc = "Move selection down" }
 -- Normal mode: move current line up/down
 vim.keymap.set("n", "K", ":m .-2<CR>==", { desc = "Move line up" })
 vim.keymap.set("n", "J", ":m .+1<CR>==", { desc = "Move line down" })
+
+-- use functions so require() triggers lazy-load
+map("n", "<F5>", function()
+  require("dap").continue()
+end, { desc = "DAP Continue/Start" })
+
+map("n", "<S-F5>", function()
+  require("dap").terminate()
+  require("dapui").close()
+end, { desc = "DAP Stop" })
+
+map("n", "<F9>", function()
+  require("dap").toggle_breakpoint()
+end, { desc = "DAP Toggle Breakpoint" })
+
+map("n", "<F10>", function()
+  require("dap").step_over()
+end, { desc = "DAP Step Over" })
+
+map("n", "<F11>", function()
+  require("dap").step_into()
+end, { desc = "DAP Step Into" })
+
+map("n", "<S-F11>", function()
+  require("dap").step_out()
+end, { desc = "DAP Step Out" })
+
+map("n", "<leader>dr", function()
+  require("dap").repl.open()
+end, { desc = "DAP REPL" })
+
+map("n", "<leader>du", function()
+  require("dapui").toggle()
+end, { desc = "DAP UI Toggle" })
 
 -- Operator: replace {motion} with system clipboard
 local function ReplaceWithClipboard(type)
