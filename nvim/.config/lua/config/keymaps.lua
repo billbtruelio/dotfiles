@@ -32,6 +32,12 @@ map("n", "<S-F5>", function()
   require("dapui").close()
 end, { desc = "DAP Stop" })
 
+-- Some terminals send <S-F5> as <F17>; bind both so stop works reliably
+map("n", "<F17>", function()
+  require("dap").terminate()
+  require("dapui").close()
+end, { desc = "DAP Stop (S-F5)" })
+
 map("n", "<F9>", function()
   require("dap").toggle_breakpoint()
 end, { desc = "DAP Toggle Breakpoint" })
@@ -39,6 +45,11 @@ end, { desc = "DAP Toggle Breakpoint" })
 map("n", "<F10>", function()
   require("dap").step_over()
 end, { desc = "DAP Step Over" })
+
+-- Some terminals send <S-F10> as <F22>; bind both so step over still works
+map("n", "<F22>", function()
+  require("dap").step_over()
+end, { desc = "DAP Step Over (S-F10)" })
 
 map("n", "<F11>", function()
   require("dap").step_into()
@@ -55,6 +66,12 @@ end, { desc = "DAP REPL" })
 map("n", "<leader>du", function()
   require("dapui").toggle()
 end, { desc = "DAP UI Toggle" })
+
+-- Git diffs (side-by-side via diffview.nvim)
+map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", { desc = "Diffview: Repo diff" })
+map("n", "<leader>gD", "<cmd>DiffviewClose<CR>", { desc = "Diffview: Close" })
+map("n", "<leader>gh", "<cmd>DiffviewFileHistory<CR>", { desc = "Diffview: File history" })
+map("n", "<leader>gH", "<cmd>DiffviewFileHistory %<CR>", { desc = "Diffview: Current file history" })
 
 -- Operator: replace {motion} with system clipboard
 local function ReplaceWithClipboard(type)
